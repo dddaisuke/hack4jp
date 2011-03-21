@@ -36,7 +36,7 @@ $(function(){
 			var li = $('<li></li>').
 				append($('<h2></h2>').text(tweet.text)).
 				append($('<p></p>').text(tweet.user.name + "(" + tweet.user.screen_name +")")).
-				append($('<h2 style="color:red;"></h2>').text('デマ：' + tweet.dema_count)).
+				append($('<h2 style="color:red;"></h2>').text('デマ：' + tweet.dema_count + '(' + (tweet.dema_score * 100) + '%)')).
 				append($('<h2 style="color:blue;"></h2>').text('デマじゃない：' + tweet.non_dema_count));
 
 			entryList.append(li);
