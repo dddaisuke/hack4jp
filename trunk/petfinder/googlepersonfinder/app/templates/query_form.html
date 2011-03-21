@@ -42,9 +42,12 @@
           </td> 
           <td class="field"> 
             
-            <input id="size" name="size"
-                value="" size=20> 
-            
+            <input id="size" name="size" type="radio"
+                value="0" size=20>小
+            <input id="size" name="size" type="radio"
+                value="1" size=20> 中
+            <input id="size" name="size" type="radio"
+                value="2" size=20> 大
           </td> 
         </tr> 
         
@@ -52,7 +55,7 @@
 
         <tr> 
           <td class="label"> 
-            <label for="body_color">color:</label> 
+            <label for="body_color">色:</label> 
           </td> 
           <td class="field"> 
             
@@ -65,7 +68,7 @@
 
 
         <tr> 
-          <td class="label"> pattern</td> 
+          <td class="label"> 模様</td> 
           <td class="field"> 
             
               <input id="body_pattern" name="body_pattern"
@@ -77,7 +80,7 @@
 
         <tr> 
           <td class="label"> 
-            <label for="body_characteristics">characteristics:</label> 
+            <label for="body_characteristics">特徴:</label> 
           </td> 
           <td class="field"> 
             
@@ -90,12 +93,12 @@
 
         <tr> 
           <td class="label"> 
-            <label for="situation">situation:</label> 
+            <label for="situation">見つけた時の状況:</label> 
           </td> 
           <td class="field"> 
             
               <input id="situation" name="situation"
-                  value="" size=20> 
+                  value="" size=50> 
             
           </td> 
         </tr> 
@@ -103,25 +106,27 @@
 
         <tr> 
           <td class="label"> 
-            <label for="leash">leash:</label> 
+            <label for="leash">リード:</label> 
           </td> 
           <td class="field"> 
             
-              <input id="leash" name="leash"
-                  value="" size=20> 
-            
+            <input id="leash" name="leash" type="radio"
+                value="0"> なし
+            <input id="leash" name="leash" type="radio"
+                value="1" size=20>あり
           </td> 
         </tr> 
 
 
         <tr> 
           <td class="label"> 
-            <label for="collar">collar:</label> 
+            <label for="collar">首輪:</label> 
           </td> 
           <td class="field"> 
-            
-              <input id="collar" name="collar"
-                  value="" size=20> 
+            <input id="collar" name="collar" type="radio"
+                value="0"> なし
+            <input id="collar" name="collar" type="radio"
+                value="1" size=20>あり
             
           </td> 
         </tr> 
@@ -129,7 +134,7 @@
 
         <tr> 
           <td class="label"> 
-            <label for="location">location [latitude,longtude]:</label> 
+            <label for="location">場所 [緯度,経度]:</label> 
           </td> 
           <td class="field"> 
             
@@ -143,7 +148,7 @@
 
         <tr> 
           <td class="label"> 
-            <label for="last_seen_date">last_seen_date:</label> 
+            <label for="last_seen_date">発見日YYYY/MM/DD:</label> 
           </td> 
           <td class="field"> 
             
@@ -156,7 +161,7 @@
 
         <tr> 
           <td class="label"> 
-            <label for="registration_num">registration_num:</label> 
+            <label for="registration_num">登録番号:</label> 
           </td> 
           <td class="field"> 
             
@@ -170,7 +175,7 @@
 
         <tr> 
           <td class="label"> 
-            <label for="micro_chip_num">micro_chip_num:</label> 
+            <label for="micro_chip_num">マイクロチップ番号:</label> 
           </td> 
           <td class="field"> 
             
@@ -183,12 +188,12 @@
 
         <tr> 
           <td class="label"> 
-            <label for="other">other:</label> 
+            <label for="other">その他:</label> 
           </td> 
           <td class="field"> 
             
-              <input id="other" name="other"
-                  value="" size=20> 
+              <textarea id="other" name="other"
+                  value="" cols="50" rows="5"></textarea>
             
           </td> 
         </tr> 
@@ -204,7 +209,7 @@
     <tr> 
       <td colspan=2 class="submit" align="center"> 
         
-          <input type="submit" value="この人に関する情報を提供する"> 
+          <input type="submit" value="このペットに関する情報を提供する"> 
         
       </td> 
     </tr> 
