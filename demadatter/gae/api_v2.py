@@ -10,7 +10,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 import models
 
-__all__ = ('DemaAdd', 'DemaCount')
+__all__ = ('DemaAdd', 'DemaGet', 'DemaCount')
 
 
 class DemaAdd(webapp.RequestHandler):
@@ -20,6 +20,11 @@ class DemaAdd(webapp.RequestHandler):
         self.response.out.write(result)
         
     def post(self):
+        # return demo data
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.out.write("""{"status": "success"}""")
+        return
+
         # ユーザ認証
         token = getToken(self.request.get('token'))
         result = ['token=%s' % token]
@@ -52,6 +57,28 @@ class DemaAdd(webapp.RequestHandler):
         self.response.headers["Content-Type"] = "text/plain"
         self.response.headers["Content-Length"] = '%d' % len(result)
         self.response.out.write(result)
+
+
+class DemaGet(webapp.RequestHandler):
+    """デマレポート処理"""
+    def get(self):
+        tweet_id = int(self.request.get('tweet_id'))
+
+        self.response.headers['Content-Type'] = 'application/json'
+        self.response.out.write("""
+{"status": "success",
+ "tweet_id": %d,
+ "text": "東電に勤めてる知り合いによると、いま放射能が大量に出てきて作業している人が逃げ出したらしい",
+ "user": {
+     "name": "nitoyon",
+     "id": 12345,
+     "screen_name": "nitoyon",
+     "followers_count": 28
+ },
+ "dema_count": 3,
+ "non_dema_count": 2,
+ "dema_score": 0.6
+}""" % tweet_id)
 
 
 class DemaCount(webapp.RequestHandler):
