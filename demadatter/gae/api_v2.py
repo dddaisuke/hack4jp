@@ -5,6 +5,7 @@ import string
 import random
 from datetime import datetime
 
+from django.utils import simplejson as json
 from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
@@ -65,6 +66,42 @@ class DemaGet(webapp.RequestHandler):
         tweet_id = int(self.request.get('tweet_id'))
 
         self.response.headers['Content-Type'] = 'application/json'
+        try:
+            if self.request.get('demo'):
+                self.show_demo_tweet(tweet_id)
+            else:
+                self.show_tweet(tweet_id)
+        except Exception, e:
+            self.response.set_status(500)
+            self.response.out.write(json.dumps({
+                "status": "ng", 
+                "text": "Internal Server Error",
+                "detail": str(e),
+            }))
+
+    def show_tweet(self, tweet_id):
+        """ Show datastore data. """
+        tweet = models.Tweet.get_by_key_name(str(tweet_id))
+        if tweet is None:
+            self.response.set_status(404)
+            self.response.out.write('{ "status": "ng", "text": "Not Found"}')
+            return
+
+        self.response.out.write(json.dumps({
+            "status": "success",
+            "tweet_id": tweet_id,
+            "text": tweet.tweet,
+            "user": {
+                "name": "nitoyon",#tweet.user.name,
+                "screen_name": "nitoyon",#tweet.user.screen_name
+                "id": 1,
+            },
+            "dema_count": tweet.dema_count,
+            "non_dema_count": tweet.non_dema_count,
+        }))
+
+    def show_demo_tweet(self, tweet_id):
+        """ Show demo data. """
         self.response.out.write("""
 {"status": "success",
  "tweet_id": %d,
@@ -108,17 +145,9 @@ class DemaCount(webapp.RequestHandler):
 
 
 ##  Utility
-def save_create_twit(tweet_id, tweet, user,):
-    u"""
-    tweet_id : Tweet ID
-    tweet : Tweet 本文
-    user : 投稿者のUserエンティティ
-    """
-    entity = models.Tweet.get_or_insert(key_name = str(tweet_id),
-                                        tweet_id = tweet_id,
-                                        tweet = tweet,
-                                        user = user)
-    return entity
+def save_create_twit(twit_id, tweet, twitter_user,):
+    pass
+    
 
 def getToken(token):
     if not token:
