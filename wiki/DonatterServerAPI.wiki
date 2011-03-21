@@ -45,7 +45,7 @@ http://donatter-h4jp.appspot.com
 ==ユーザの献血記録登録==
 
 ===パス===
-||/client/user/donateBloods||
+||/client/user/donateBlood||
 
 ===引き数===
 ||userId||ユーザの識別ID||long||||
