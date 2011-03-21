@@ -9,7 +9,7 @@ HTTPリクエストでリクエストし、Jsonのレスポンスを返します
 
  (例)
  * リクエスト
- http://donatter-h4jp.appspot.com/client/bloodDonations?date= 20110321&clientKey=XXXX-XXXX-XXXX-XXXX
+ http://donatter-h4jp.appspot.com/client/bloodDonations?date=20110321&clientKey=XXXX-XXXX-XXXX-XXXX
  * レスポンス
  {"status":"OK","donations":[{"amount":0,"type":"A"},{"amount":0,"type":"B"},{"amount":200,"type":"O"},{"amount":0,"type":"AB"}],"date":"20110321","success":true,"version":"0"}
 
