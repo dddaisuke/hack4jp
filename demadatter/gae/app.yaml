@@ -16,5 +16,9 @@ handlers:
 - url: /v2/.*
   script: v2.py
 
+- url: /auth/.*
+  script: twitter_oauth_handler.py
+
+
 
 

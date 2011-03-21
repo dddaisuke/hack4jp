@@ -11,14 +11,27 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 import models
 
-__all__ = ('DemaAdd', 'DemaGet', 'DemaCount')
+#__all__ = ('DemaAdd', 'DemaGet', 'DemaCount')
 
 
 class DemaAdd(webapp.RequestHandler):
     """デマレポート処理"""
     def get(self):
-        result = self.request.get('hoge')
+        tweet_id  = self.request.get('tweet_id ')
+        reporter_id = self.request.get('reporter_id ')
         self.response.out.write(result)
+        tweet_id  =49718585047785472
+        twit_data =  get_status_by_tweet_id(tweet_id)
+
+        tweet = twit_data[u'text']
+        print twit_data
+        xx = hoge()
+        tt = save_create_twit(
+             tweet_id = tweet_id, 
+             tweet=tweet, 
+             user=xx, 
+             tweeted_at= twit_data['created_at'])
+
         
     def post(self):
         # return demo data
@@ -145,8 +158,21 @@ class DemaCount(webapp.RequestHandler):
 
 
 ##  Utility
-def save_create_twit(twit_id, tweet, twitter_user,):
-    pass
+def save_create_twit(tweet_id, tweet, user,tweeted_at):
+    u"""
+    tweet_id : Tweet ID
+    tweet : Tweet 本文
+    user : 投稿者のUserエンティティ
+    """
+    import datetime
+    print tweeted_at
+    dd = datetime.datetime.strptime(tweeted_at, '%a %b %d %H:%M:%S +0000 %Y')
+    entity = models.Tweet.get_or_insert(key_name = str(tweet_id),
+                                        tweet_id = tweet_id,
+                                        tweet = tweet,
+                                        user = user, 
+                                        tweeted_at = dd)
+    return entity
     
 
 def getToken(token):
@@ -157,3 +183,7 @@ def getToken(token):
     return token
 
 
+#def get_user():
+def hoge():
+    usr = models.User.get_or_insert(key_name = '1', user_id = 1 )
+    return usr

@@ -23,7 +23,7 @@ class User(db.Model):
     # ユーザ確認トークン(ランダムキー)
     token = db.StringProperty()
     # トークンの長さ
-    TOKEN_LENGTH = 20
+    #TOKEN_LENGTH = 20
 
 class Reporter(db.Model):
     u"""デマ通報者
@@ -68,6 +68,10 @@ class Tweet(db.Model):
     screen_name = db.StringProperty()
     # 発言者のユーザ名
     user_name = db.StringProperty()
+
+    def get_jst(self):
+        from datetime import timedelta
+        return self.tweeted_at + timedelta(hours=9)
 
 class Report(db.Model):
     u"""レポート(デマ通報)"""
