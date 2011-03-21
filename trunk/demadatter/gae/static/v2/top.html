@@ -30,10 +30,11 @@
 </div>
 <script type="text/javascript">
 $(function(){
+	// jQuery mobileの場合、ページを読み込むとキャッシュしてしまうので、以前のページを削除する（つまり、毎回データロードを行うようになる）
 	$('a').click(function(){
 		var pageId = $(this).attr('href').replace('.html', '');
 		var page = $('#' + pageId);
-		
+
 		page.remove();
 	});
 });
