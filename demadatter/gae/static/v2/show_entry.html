@@ -9,7 +9,7 @@
 </head> 
 <body> 
 
-<div data-role="page">
+<div data-role="page" id="show_entry.html">
 
 	<div data-role="header">
 		<h1>エントリ検索</h1>
@@ -39,37 +39,29 @@ $(function(){
 		
 		// search API call
 		
-		var result = {"status": "success",
-				 "tweet_id": 123456789,
-				 "text": "東電に勤めてる知り合いによると、いま放射能が大量に出てきて作業している人が逃げ出したらしい",
-				 "user": {
-				     "name": "nitoyon",
-				     "id": 12345,
-				     "screen_name": "nitoyon",
-				     "followers_count": 28,
-				 },
-				 "dema_count": 3,
-				 "non_dema_count": 2,
-				 "dema_score": 0.6    // 3 / (3 + 2)
-				};
-		
-		if ( result.status != "success" ) {
-			alert("通信エラーが発生したか、指定されたtwitter IDが存在しませんでした。");
-			return;
-		}
-		
-		var li = $('<li></li>').append($('<h2></h2>').text(result.text).
-								append($('<p></p>').text(result.user.name + "(" + result.user.screen_name +")")).
-								append($('<h2 style="color: red;"></h2>').text("デマ：" + result.dema_count)).
-								append($('<h2 style="color: blue;"></h2>').text("デマじゃない：" + result.non_dema_count))
-		);
-		
-		var ul = $('#list');
-		ul.empty();	// 今の子要素を削除し、
-		ul.append(li);	// 検索結果を追加
+		var callback = function(result){
+			if ( result.status != "success" ) {
+				alert("通信エラーが発生したか、指定されたtwitter IDが存在しませんでした。");
+				return;
+			}
+			
+			var li = $('<li></li>').append($('<h2></h2>').text(result.tweet_id + ": " + result.text).
+									append($('<p></p>').text(result.user.name + "(" + result.user.screen_name +")")).
+									append($('<h2 style="color: red;"></h2>').text("デマ：" + result.dema_count)).
+									append($('<h2 style="color: blue;"></h2>').text("デマじゃない：" + result.non_dema_count))
+			);
+			
+			var ul = $('#list');
+			ul.empty();	// 今の子要素を削除し、
+			ul.append(li);	// 検索結果を追加
 
-		ul.listview('refresh');	// 最後に更新
+			ul.listview('refresh');	// 最後に更新
+		};
 		
+		// API call
+		$.getJSON('/v2/api/entry',
+				{tweet_id : tId},
+				callback);
 	});
 });
 </script>
