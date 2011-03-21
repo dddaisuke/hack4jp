@@ -26,52 +26,29 @@
 	
 <script type="text/javascript">
 $(function(){
-	// search API call
-	
-	var results = { "status": "success",
-			  "tweets": [
-			             { "tweet_id": 123456789,
-			                "text": "東電に勤めてる知り合いによると、いま放射能が大量に出てきて作業している人が逃げ出したらしい",
-			                "user": {
-			                    "name": "nitoyon",
-			                    "id": 12345,
-			                    "screen_name": "nitoyon",
-			                    "followers_count": 28,
-			                },
-			                "dema_count": 3,
-			                "non_dema_count": 2,
-			                "dema_score": 0.6    // 3 / (3 + 2)
-			             },
-			             { "tweet_id": 1234567889,
-			               "text": "地震雲が各地に大量に出ているので、3月中に富士山が噴火するという噂がある。",
-				           "user": {
-				                "name": "mtoyoshi",
-				                "id": 12349,
-				                "screen_name": "mtoyoshi",
-				                "followers_count": 11,
-				            },
-				            "dema_count": 1091,
-				            "non_dema_count": 2,
-				            "dema_score": 99.8    // 1091 / (1091 + 2)
-			             }
-			         ] 
-			       };
-
-	var entryList = $('#entry_list');
-	
-	for(var i=0; i<results.tweets.length; i++) {
-		var tweet = results.tweets[i];
+	var callback = function(results){
+		var entryList = $('#entry_list');
 		
-		var li = $('<li></li>').
-			append($('<h2></h2>').text(tweet.text)).
-			append($('<p></p>').text(tweet.user.name + "(" + tweet.user.screen_name +")")).
-			append($('<h2 style="color:red;"></h2>').text('デマ：' + tweet.dema_count)).
-			append($('<h2 style="color:blue;"></h2>').text('デマじゃない：' + tweet.non_dema_count));
+		for(var i=0; i<results.tweets.length; i++) {
+			var tweet = results.tweets[i];
+			
+			var li = $('<li></li>').
+				append($('<h2></h2>').text(tweet.text)).
+				append($('<p></p>').text(tweet.user.name + "(" + tweet.user.screen_name +")")).
+				append($('<h2 style="color:red;"></h2>').text('デマ：' + tweet.dema_count)).
+				append($('<h2 style="color:blue;"></h2>').text('デマじゃない：' + tweet.non_dema_count));
 
-		entryList.append(li);
-	}
+			entryList.append(li);
+		}
 
-	entryList.listview('refresh');	// 最後に更新
+		entryList.listview('refresh');	// 最後に更新
+	};
+	
+	// API call
+	$.getJSON('/v2/api/ranking',
+			{type : 'date',
+			 demo : 1},
+			callback);
 });
 </script>
 	
