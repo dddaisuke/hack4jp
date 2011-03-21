@@ -792,11 +792,11 @@ msgstr "What is your situation?"
 
 #: templates/main.html:28 templates/query_form.html:20
 msgid "I'm looking for someone"
-msgstr "I'm looking for someone"
+msgstr "I'm looking for my pet"
 
 #: templates/main.html:33 templates/query_form.html:13
 msgid "I have information about someone"
-msgstr "I have information about someone"
+msgstr "I have information about a pet"
 
 #: templates/main.html:40
 #, python-format

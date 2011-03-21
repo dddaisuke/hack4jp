@@ -241,7 +241,19 @@ class Person(Base):
     home_country = db.StringProperty(default='')
     photo_url = db.TextProperty(default='')
     other = db.TextProperty(default='')
-
+    
+    # Extra information for pets
+    pet_name = db.StringProperty()
+    pet_size = db.StringProperty()
+    body_color = db.StringProperty()
+    body_color_pattern = db.StringProperty()
+    pet_characteristics = db.StringProperty()
+    has_leash = db.BooleanProperty()
+    collar = db.StringProperty()    
+    registration_num = db.StringProperty()
+    microchip_num = db.StringProperty()
+    location = db.ListProperty(float)
+     
 
     # This reference points to a locally stored Photo entity.  ONLY set this
     # property when storing a new Photo object that is owned by this Person
