@@ -36,10 +36,10 @@ class TemplatedPage(webapp.RequestHandler):
 class TopPage(TemplatedPage):
     def get(self):
         # self.response.out.write('Hello world2!')
-		values = {
-			'title': 'App Engine Image Demo'
-		}
-		self.write_template(values)
+        values = {
+            'title': 'App Engine Image Demo'
+        }
+        self.write_template(values)
 
 
 def main():

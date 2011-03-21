@@ -36,13 +36,13 @@ class TemplatedPage(webapp.RequestHandler):
 class IndexPage(TemplatedPage):
     def get(self):
         # self.response.out.write('Hello world2!')
-		values = {
-			'list': [
-				{'tweetid':1,'screen_name':'hoge','tweet':'mugemuge','count':1,'createdat':'2011/03/15 00:00:00'},
-				{'tweetid':2,'screen_name':'hoge2','tweet':'mugemuge2','count':2,'createdat':'2011/03/15 00:00:00'},
-				]
-		}
-		self.write_template(values)
+        values = {
+            'list': [
+                {'tweetid':1,'screen_name':'hoge','tweet':'mugemuge','count':1,'createdat':'2011/03/15 00:00:00'},
+                {'tweetid':2,'screen_name':'hoge2','tweet':'mugemuge2','count':2,'createdat':'2011/03/15 00:00:00'},
+                ]
+        }
+        self.write_template(values)
 
 class DemaAdd(webapp.RequestHandler):
     def get(self):
@@ -54,8 +54,8 @@ class DemaCount(webapp.RequestHandler):
 
 def main():
     application = webapp.WSGIApplication([('/v1/', IndexPage),
-											('/v1/add',DemaAdd),
-											('/v1/count',DemaCount)],
+                                            ('/v1/add',DemaAdd),
+                                            ('/v1/count',DemaCount)],
                                          debug=True)
     util.run_wsgi_app(application)
 
