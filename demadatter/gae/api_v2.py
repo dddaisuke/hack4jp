@@ -108,9 +108,17 @@ class DemaCount(webapp.RequestHandler):
 
 
 ##  Utility
-def save_create_twit(twit_id, tweet, twitter_user,):
-    pass
-    
+def save_create_twit(tweet_id, tweet, user,):
+    u"""
+    tweet_id : Tweet ID
+    tweet : Tweet 本文
+    user : 投稿者のUserエンティティ
+    """
+    entity = models.Tweet.get_or_insert(key_name = str(tweet_id),
+                                        tweet_id = tweet_id,
+                                        tweet = tweet,
+                                        user = user)
+    return entity
 
 def getToken(token):
     if not token:
