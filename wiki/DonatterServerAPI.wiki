@@ -2,7 +2,7 @@
 #Donatter Server API
 
 = 概要 =
-Donetterが提供するAPIのドキュメントです。
+Donatterが提供するAPIのドキュメントです。
 
 = 詳細 =
 HTTPリクエストでリクエストし、Jsonのレスポンスを返します。
