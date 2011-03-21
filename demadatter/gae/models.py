@@ -13,7 +13,7 @@ class User(db.Model):
     # デマ率（発言数におけるデマ率）
     dema_ratio = db.IntegerProperty()
     # 登録日時
-    created_at = db.DateTimeProperty(auto_add_now=True)
+    created_at = db.DateTimeProperty(auto_now_add=True)
     # 更新日時
     updated_at = db.DateTimeProperty(auto_now=True)
     
@@ -29,7 +29,7 @@ class Reporter(db.Model):
     u"""デマ通報者
     key_name… Userのkey_nameと同一"""
     # 登録日時
-    created_at = db.DateTimeProperty(auto_add_now=True)
+    created_at = db.DateTimeProperty(auto_now_add=True)
     # 更新日時
     updated_at = db.DateTimeProperty(auto_now=True)
     # Userエンティティ
@@ -38,10 +38,12 @@ class Reporter(db.Model):
 class Tweet(db.Model):
     u"""ツイート情報
     key_name… tweet_id"""
-    # ツイート日時
-    created_at = db.DateTimeProperty()
+    # 作成日時
+    created_at = db.DateTimeProperty(auto_now_add=True)
     # 更新日時
     updated_at = db.DateTimeProperty(auto_now=True)
+    # ツイート日時
+    tweeted_at = db.DateTimeProperty()
     # ツイートID(key_nameと同一)
     tweet_id = db.IntegerProperty()
     # 発言者Userエンティティ
@@ -70,7 +72,7 @@ class Tweet(db.Model):
 class Report(db.Model):
     u"""レポート(デマ通報)"""
     # 登録日時
-    created_at = db.DateTimeProperty(auto_add_now=True)
+    created_at = db.DateTimeProperty(auto_now_add=True)
     # 更新日時
     updated_at = db.DateTimeProperty(auto_now=True)
     # Reporterエンティティ
