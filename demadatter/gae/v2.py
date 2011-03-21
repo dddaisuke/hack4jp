@@ -14,7 +14,7 @@ urlmap = (
            # エントリ情報取得 
            ('/v2/api/entry',  DemaGet),
            # ランキング取得系
-           ('/v2/count',DemaCount),
+           ('/v2/api/ranking', DemaRanking),
          )
 
 
