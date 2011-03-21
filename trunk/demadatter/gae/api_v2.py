@@ -10,6 +10,8 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 import models
+from twitter import get_status_by_tweet_id
+import logging
 
 __all__ = ('DemaAdd', 'DemaGet', 'DemaRanking')
 
@@ -17,21 +19,53 @@ __all__ = ('DemaAdd', 'DemaGet', 'DemaRanking')
 class DemaAdd(webapp.RequestHandler):
     """デマレポート処理"""
     def get(self):
-        tweet_id  = self.request.get('tweet_id ')
-        reporter_id = self.request.get('reporter_id ')
-        self.response.out.write(result)
-        tweet_id  =49718585047785472
+        tweet_id  = int(self.request.get('tweet_id'))
+        #tweet_id = 49718585047785472
+        reporter_id = self.request.get('reporter_id')
+        reporter_id  = '1'
+
+        flag = int(self.request.get('flag'))
+
+        logging.info(tweet_id)
         twit_data =  get_status_by_tweet_id(tweet_id)
 
-        tweet = twit_data[u'text']
-        print twit_data
-        xx = hoge()
-        tt = save_create_twit(
-             tweet_id = tweet_id, 
-             tweet=tweet, 
-             user=xx, 
-             tweeted_at= twit_data['created_at'])
+        ## Tweetを作る
+        tweet = twit_data[u'text']  # twit の本文
+        user_obj = get_user(reporter_id)  # レポートする人のUserObject
+        tweet_obj = save_create_twit(
+                     tweet_id   = tweet_id, 
+                     tweet      = tweet, 
+                     user       = user_obj, 
+                     tweeted_at = twit_data['created_at']
+                     )
 
+        ## Reportを作る
+        repo = models.Report.get_or_insert(
+                             key_name = "%s_%s"%(user_obj.user_id, tweet_obj.tweet_id), 
+                             reporter = user_obj, 
+                             tweet = tweet_obj, 
+                             )
+        
+        before_flag = repo.dema_flag
+        repo.dema_flag = flag
+        dema_delta = [0, 0]
+
+        if before_flag == 1:
+             dema_delta[0] -= 1
+        elif before_flag == -1:
+             dema_delta[1] -= 1
+
+        if flag == 1:
+             dema_delta[0] += 1
+        elif flag == -1:
+             dema_delta[1] += 1
+
+        tweet_obj.set_dema_cnt(*dema_delta)
+        tweet_obj.put()
+         
+        repo.put()
+        res = {'staus':'ok'} 
+        self.response.out.write(str(res))
         
     def post(self):
         # return demo data
@@ -230,7 +264,6 @@ def getToken(token):
     return token
 
 
-#def get_user():
-def hoge():
-    usr = models.User.get_or_insert(key_name = '1', user_id = 1 )
+def get_user(user_id):
+    usr = models.User.get_or_insert(key_name = str(user_id), user_id = int(user_id) )
     return usr

@@ -51,11 +51,11 @@ class Tweet(db.Model):
     # 本文
     tweet = db.StringProperty()
     # デマ報告数
-    dema_count = db.IntegerProperty()
+    dema_count = db.IntegerProperty(default=0)
     # 非デマ報告数
-    non_dema_count = db.IntegerProperty()
+    non_dema_count = db.IntegerProperty(default=0)
     # スコア
-    dema_score = db.FloatProperty()
+    dema_score = db.FloatProperty(default=0.0)
     
     #v1用(deprecated)
     # ツイートID
@@ -73,6 +73,17 @@ class Tweet(db.Model):
         from datetime import timedelta
         return self.tweeted_at + timedelta(hours=9)
 
+    def set_dema_cnt(self, dema_count_delta, non_dema_count_delta):
+        self.dema_count += dema_count_delta
+        self.non_dema_count += non_dema_count_delta
+        self.calc_dema_score()
+    def calc_dema_score(self):
+        bunbo = float(self.dema_count + self.non_dema_count)
+        if  bunbo == 0.0:
+            self.dema_score = bunbo
+        else:
+            self.dema_score = self.dema_count / bunbo
+
 class Report(db.Model):
     u"""レポート(デマ通報)"""
     # 登録日時
@@ -80,7 +91,7 @@ class Report(db.Model):
     # 更新日時
     updated_at = db.DateTimeProperty(auto_now=True)
     # Reporterエンティティ
-    reporter = db.ReferenceProperty(Reporter)
+    reporter = db.ReferenceProperty(User)  # 後々Reporterに差し替える
     # Tweetエンティティ
     tweet = db.ReferenceProperty(Tweet)
     # デマフラグ
