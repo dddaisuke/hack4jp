@@ -1,120 +1,213 @@
 {% load i18n %}
 
 
-<form method="get" action="/results">
-  {{env.subdomain_field_html|safe}}
-  <input type="hidden" name="role" value="{{params.role}}">
-  <input type="hidden" name="small" value="{{params.small}}">
-  <input type="hidden" name="style" value="{{params.style}}">
-  <table class="query" align="center">
-    <tr>
-      <td class="instructions {{params.error}}" colspan="2">
-        {% ifequal params.role 'provide' %}
-          <h3 class="sub_title">{% trans "I have information about someone" %}</h3>
-            {% if env.use_family_name %}
-              {% trans "Enter the person's given and family names." %}
-            {% else %}
-              {% trans "Enter the person's name." %}
-            {% endif %}
-        {% else %}
-          <h3 class="sub_title">{% trans "I'm looking for someone" %}</h3>
-          {% trans "Enter the person's name or parts of the name." %}
-        {% endifequal %}
-      </td>
-    </tr>
+<form method="get" action="/results"> 
+  <input type="hidden" name="subdomain" value=""> 
+  <input type="hidden" name="role" value="provide"> 
+  <input type="hidden" name="small" value=""> 
+  <input type="hidden" name="style" value=""> 
+  <table class="query" align="center"> 
+    <tr> 
+      <td class="instructions " colspan="2"> 
+        
+          <h3 class="sub_title">発見情報を提供する</h3> 
+            
+              見つけたペットの詳細を入力してください
+            
+        
+      </td> 
+    </tr> 
     
-    {% ifequal params.role 'provide' %}
-      {% if env.use_family_name and env.family_name_first %}
-        <tr>
-          <td class="label">
-            <label for="last_name">{% trans "Family name" %}:</label>
-          </td>
-          <td class="field">
-            {% ifequal params.style "facebook" %}
-              <input id="last_name" name="last_name"
-                  value="{{params.last_name}}" size=10>
-            {% else %}
-              <input id="last_name" name="last_name"
-                  value="{{params.last_name}}" size=20>
-            {% endifequal %}
-          </td>
-        </tr>
-      {% endif %}
-        <tr>
-          <td class="label">
-            <label for="first_name">
-              {% if env.use_family_name %}
-                {% trans "Given name" %}:
-              {% else %}
-                {% trans "Name" %}:
-              {% endif %}
-            </label>
-          </td>
-          <td class="field">
-            {% ifequal params.style "facebook" %}
-              <input id="first_name" name="first_name"
-                  value="{{params.first_name}}" size=10>
-            {% else %}
-            <input id="first_name" name="first_name"
-                value="{{params.first_name}}" size=20>
-            {% endifequal %}
-          </td>
-        </tr>
-      {% if env.use_family_name and not env.family_name_first %}
-        <tr>
-          <td class="label">
-            <label for="last_name">{% trans "Family name" %}:</label>
-          </td>
-          <td class="field">
-            {% ifequal params.style "facebook" %}
-              <input id="last_name" name="last_name"
-                  value="{{params.last_name}}" size=10>
-            {% else %}
-              <input id="last_name" name="last_name"
-                  value="{{params.last_name}}" size=20>
-            {% endifequal %}
-          </td>
-        </tr>
-      {% endif %}
-    {% else %}
-      <tr>
-        <td class="field">
-          {% ifequal params.style "facebook" %}
-            <input id="query" name="query"
-                value="{{params.query}}" size=10>
-          {% else %}
-            <input id="query" name="query"
-                value="{{params.query}}" size=40>
-          {% endifequal %}
-        </td>
-      </tr>
-    {% endifequal %}
     
-    <tr>
-     {% ifequal num_results 100 %}
-      <td class="warning">
-        {% trans "More than 100 results; only showing the first 100.  Try entering more of the name" %}
-      </td>
-     {% endifequal %}
-    </tr>
-    <tr>
-      <td colspan=2 class="submit" align="center">
-        {% ifequal params.role 'provide' %}
-          {% if params.small %}
-            <input type="submit" value="{% trans "Search for this person" %}">
-          {% else %}
-            <input type="submit" value="{% trans "Provide information about this person" %}">
-          {% endif %}
-        {% else %}
-          {% ifequal params.style "facebook" %}
-            <div style="margin-left: -70px"
-            <input type="submit" value="{% trans "Search for this person" %}">
-            </div>
-          {% else %}
-            <input type="submit" value="{% trans "Search for this person" %}">
-          {% endifequal %}
-        {% endifequal %}
-      </td>
-    </tr>
-  </table>
-</form>
+        <tr> 
+          <td class="label"> 
+            <label for="name">ペットの名前:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="name" name="name"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+      
+        <tr> 
+          <td class="label"> 
+            <label for="size"> 
+              
+                サイズ:
+              
+            </label> 
+          </td> 
+          <td class="field"> 
+            
+            <input id="size" name="size"
+                value="" size=20> 
+            
+          </td> 
+        </tr> 
+        
+    
+
+        <tr> 
+          <td class="label"> 
+            <label for="body_color">color:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="body_color" name="body_color"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+
+        <tr> 
+          <td class="label"> pattern</td> 
+          <td class="field"> 
+            
+              <input id="body_pattern" name="body_pattern"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="body_characteristics">characteristics:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="body_characteristics" name="body_characteristics"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="situation">situation:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="situation" name="situation"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="leash">leash:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="leash" name="leash"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="collar">collar:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="collar" name="collar"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="location">location [latitude,longtude]:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="location_lat" name="location_lat"
+                  value="" size=20> 
+              <input id="location_lng" name="location_lng"
+                  value="" size=20> 
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="last_seen_date">last_seen_date:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="last_seen_date" name="last_seen_date"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="registration_num">registration_num:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="registration_num" name="registration_num"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="micro_chip_num">micro_chip_num:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="micro_chip_num" name="micro_chip_num"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+        <tr> 
+          <td class="label"> 
+            <label for="other">other:</label> 
+          </td> 
+          <td class="field"> 
+            
+              <input id="other" name="other"
+                  value="" size=20> 
+            
+          </td> 
+        </tr> 
+
+
+
+
+
+    
+    <tr> 
+     
+    </tr> 
+    <tr> 
+      <td colspan=2 class="submit" align="center"> 
+        
+          <input type="submit" value="この人に関する情報を提供する"> 
+        
+      </td> 
+    </tr> 
+  </table> 
+</form> 
+ 
