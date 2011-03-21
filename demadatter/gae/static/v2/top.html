@@ -21,13 +21,22 @@
 			<li><a href="recently.html">最新エントリ</a></li>
 			<li><a href="rate_ranking.html">レートランキング</a></li>
 			<li><a href="show_entry.html">エントリ検索</a></li>
-		</ul>	
+		</ul>
 	</div>
 
 	<div data-role="footer">
 		<h4>Hack For JAPAN</h4>
 	</div>
 </div>
-
+<script type="text/javascript">
+$(function(){
+	$('a').click(function(){
+		var pageId = $(this).attr('href').replace('.html', '');
+		var page = $('#' + pageId);
+		
+		page.remove();
+	});
+});
+</script>
 </body>
 </html>

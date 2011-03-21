@@ -9,14 +9,14 @@
 </head> 
 <body> 
 
-<div data-role="page">
+<div data-role="page" id="rate_ranking">
 
 	<div data-role="header">
 		<h1>デマレート順表示</h1>
 	</div>
 
 	<div data-role="content">
-		<ul data-role="listview" id="entry_list">
+		<ul data-role="listview" id="rate_entry_list">
 		</ul>
 	</div>
 
@@ -57,7 +57,7 @@ $(function(){
 			         ] 
 			       };
 
-	var entryList = $('#entry_list');
+	var entryList = $('#rate_entry_list');
 	
 	for(var i=0; i<results.tweets.length; i++) {
 		var tweet = results.tweets[i];
