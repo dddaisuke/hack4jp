@@ -100,18 +100,9 @@ class DemaGet(webapp.RequestHandler):
             self.response.out.write('{ "status": "ng", "text": "Not Found"}')
             return
 
-        self.response.out.write(json.dumps({
-            "status": "success",
-            "tweet_id": tweet_id,
-            "text": tweet.tweet,
-            "user": {
-                "name": "nitoyon",#tweet.user.name,
-                "screen_name": "nitoyon",#tweet.user.screen_name
-                "id": 1,
-            },
-            "dema_count": tweet.dema_count,
-            "non_dema_count": tweet.non_dema_count,
-        }))
+        ret = tweet_to_obj(tweet)
+        ret["status"] = "success"
+        self.response.out.write(json.dumps(ret))
 
     def show_demo_tweet(self, tweet_id):
         """ Show demo data. """
@@ -153,11 +144,10 @@ class DemaRanking(webapp.RequestHandler):
             return
 
         try:
-            self.show_demo_rank(type_str)
-            #if self.request.get('demo'):
-            #    self.show_demo_rank(type_str)
-            #else:
-            #    self.show_rank(type_str)
+            if self.request.get('demo'):
+                self.show_demo_rank(type_str)
+            else:
+                self.show_rank(type_str)
         except Exception, e:
             self.response.set_status(500)
             self.response.out.write(json.dumps({
@@ -167,10 +157,16 @@ class DemaRanking(webapp.RequestHandler):
             }))
 
     def show_rank(self, type_str):
-        #if type_str == 'date':
-        #order_column = 
-        #models.Tweet.all().order('')
-        pass
+        if type_str == 'date':
+            order_column = '-created_at'
+        else:
+            order_column = '-dema_score'
+        tweets = models.Tweet.all().order(order_column).fetch(30)
+        self.response.out.write(json.dumps({
+            "status": "success", 
+            "type": type_str,
+            "tweets": [tweet_to_obj(t) for t in tweets]
+        }))
 
     def show_demo_rank(self, type_str):
         self.response.out.write("""{
@@ -211,6 +207,20 @@ def save_create_twit(tweet_id, tweet, user,tweeted_at):
                                         tweeted_at = dd)
     return entity
     
+
+def tweet_to_obj(tweet):
+    """ Convert tweet model to object. """
+    return {"tweet_id": tweet.tweet_id,
+            "text": tweet.tweet,
+            "user": {
+                "name": "nitoyon",#tweet.user.name,
+                "screen_name": "nitoyon",#tweet.user.screen_name
+                "id": 1,
+            },
+            "dema_count": tweet.dema_count,
+            "non_dema_count": tweet.non_dema_count,
+            "dema_score": tweet.dema_score,
+           }
 
 def getToken(token):
     if not token:
