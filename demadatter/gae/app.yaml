@@ -12,3 +12,9 @@ handlers:
 
 - url: /v1/.*
   script: v1.py
+
+- url: /v2/.*
+  script: v2.py
+
+
+
