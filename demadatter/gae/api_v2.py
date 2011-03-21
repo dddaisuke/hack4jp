@@ -11,7 +11,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 import models
 
-#__all__ = ('DemaAdd', 'DemaGet', 'DemaCount')
+__all__ = ('DemaAdd', 'DemaGet', 'DemaRanking')
 
 
 class DemaAdd(webapp.RequestHandler):
@@ -138,23 +138,60 @@ class DemaCount(webapp.RequestHandler):
         result = ['token=%s' % token]
 
 
-class DemaCount(webapp.RequestHandler):
-    """デマ件数応答"""
+class DemaRanking(webapp.RequestHandler):
+    """デマランキング応答"""
     def get(self):
-        # ユーザ認証
-        token = getToken(self.request.get('token'))
-        result = ['token=%s' % token]
+        # TODO: ユーザ認証
+        #token = getToken(self.request.get('token'))
+        #result = ['token=%s' % token]
 
-        # ツイートIDごとの件数
-        for tweetid in self.request.get_all('tweetid'):
-            tweet = models.Tweet.all().filter('tweetid =', tweetid).get()
-            result.append('%s=%d' % (tweetid, tweet.count if tweet else 0))
+        self.response.headers['Content-Type'] = 'application/json'
 
-        # 結果出力
-        result = '\n'.join(result)
-        self.response.headers["Content-Type"] = "text/plain"
-        self.response.headers["Content-Length"] = '%d' % len(result)
-        self.response.out.write(result)
+        type_str = self.request.get('type', 'rate')
+        if type_str not in ["rate", "date"]:
+            self.response.out.write('{"status": "ng", "text": "invalid type" }')
+            return
+
+        try:
+            self.show_demo_rank(type_str)
+            #if self.request.get('demo'):
+            #    self.show_demo_rank(type_str)
+            #else:
+            #    self.show_rank(type_str)
+        except Exception, e:
+            self.response.set_status(500)
+            self.response.out.write(json.dumps({
+                "status": "ng", 
+                "text": "Internal Server Error",
+                "detail": str(e),
+            }))
+
+    def show_rank(self, type_str):
+        #if type_str == 'date':
+        #order_column = 
+        #models.Tweet.all().order('')
+        pass
+
+    def show_demo_rank(self, type_str):
+        self.response.out.write("""{
+ "status": "success",
+ "type": "%s",
+ "tweets": [
+   {
+     "tweet_id": 1234,
+     "text": "東電に勤めてる知り合いによると、いま放射能が大量に出てきて作業している人が逃げ出したらしい",
+     "user": {
+         "name": "nitoyon",
+         "id": 12345,
+         "screen_name": "nitoyon",
+         "followers_count": 28
+     },
+     "dema_count": 3,
+     "non_dema_count": 2,
+     "dema_score": 0.6
+   }
+ ]
+}""" % str(type_str))
 
 
 ##  Utility
