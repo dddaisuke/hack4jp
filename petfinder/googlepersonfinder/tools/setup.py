@@ -49,7 +49,7 @@ def setup_subdomains():
     Subdomain(key_name='china').put()
     Subdomain(key_name='pakistan').put()
     Subdomain(key_name='lang-test').put()
-
+    Subdomain(key_name='japan-pet').put()
 def setup_configs():
     """Installs the configuration settings for Haiti, Chile, China, Pakistan."""
     COMMON_KEYWORDS = ['person', 'people', 'finder', 'person finder',
@@ -179,6 +179,27 @@ def setup_configs():
         min_query_word_length=1,
         map_default_zoom=6,
         map_default_center=[0 ,0],
+        map_size_pixels=[400, 500],
+        read_auth_key_required=False,
+        search_auth_key_required=False   
+    )
+
+    config.set_for_subdomain(
+        'japan-pet',
+        subdomain_titles={
+            'en': 'Japan Pet Finder',
+            'jp': 'Japan Pet Finder' 
+        },
+        language_menu_options=['en', 'jp'],
+        keywords=', '.join([
+            'japan', 'tsunami', 'earthquake', 'pet'
+        ] + COMMON_KEYWORDS),
+        use_family_name=False,
+        family_name_first=False,
+        use_postal_code=False,
+        min_query_word_length=1,
+        map_default_zoom=6,
+        map_default_center=[38.16,140.52],  # near Rawalpindi, Pakistan
         map_size_pixels=[400, 500],
         read_auth_key_required=False,
         search_auth_key_required=False   
