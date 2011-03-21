@@ -12,7 +12,7 @@ urlmap = (
            ('/v2/api/post',  DemaAdd),
            #('/v2/api/post/(.*)',  DemaAdd),
            # エントリ情報取得 
-           #('/v2/api/entry/([^/]+)/',  DemaGet),
+           ('/v2/api/entry',  DemaGet),
            # ランキング取得系
            ('/v2/count',DemaCount),
          )
