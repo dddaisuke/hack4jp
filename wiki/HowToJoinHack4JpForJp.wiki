@@ -1,6 +1,5 @@
 #labels Howto,Japanease
-#Hack For Japanへの参加方法 日本語での説明
-
+#Hack to Join Hack For Japan
 =ひとまず参加=
    1. Googleアカウントがないなら、作成する
 
