@@ -1,13 +1,21 @@
 #labels Howto,Japanease
 #Hack to Join Hack For Japan
+
+=2011/3/22 追記=
+  * WaveはGoogleアカウントさえあれば使用することができます。
+  * 3日間で作成されたWaveを参照して振り返りをしたり、新しいWaveで開発を続けていきましょう。
+
 =ひとまず参加=
    1. Googleアカウントがないなら、作成する
 
-   2. 公式サイトにアクセス https://sites.google.com/site/hackforjapan/
+   2. 公式サイトにアクセス 
+     * https://sites.google.com/site/hackforjapan/
 
-   3. 内容に目を通す。FAQも更新されました。https://sites.google.com/site/hackforjapan/faq
+   3. 内容に目を通す。
+     * 特にFAQ https://sites.google.com/site/hackforjapan/faq/
 
-   4. 「ご登録」のフォームをクリックして登録。※登録完了のメールは来ません。
+   4. 「ご登録」のフォームをクリックして登録。
+     * ※登録完了のメールは来ません。
 
    5. 公式サイトから 「Google Wave 3日目」 のリンクをクリック。
   * Googleアカウントの認証確認画面が出る場合は、認証してから、もう一度Google Wave のリンクをクリック。
@@ -20,7 +28,8 @@
   * IRC freenode #hack4jp でも情報共有されてます。
 
 =Google Waveの簡単な書き込み方法=
-  *linker journal : そろそろGoogle Waveについて書いてみる。http://linker.in/journal/2009/11/google-wave1.php
+  *linker journal : そろそろGoogle Waveについて書いてみる。を参照。
+    *http://linker.in/journal/2009/11/google-wave1.php
 
   * ひとまず、発言のことをBlipと言っていて、それに対してReplyやEditができる。
   * 人が書いたものもEdit可能ということ（実際に編集するときは要注意）を覚えれば大丈夫。
@@ -41,20 +50,23 @@
 
   ==自分の参加するWaveを管理する==
   * Waveの上の方のメニューの「Inbox」を押す。
-  * 左Windowの「Inbox」を押せば、中央Windowに表示される。
+  * 左Windowの「Inbox」を押せば、中央Windowに「Inbox」に入れたWaveが表示される。
+  * 中央WindowにあるWaveをクリックすると、右Windowに表示される。
 
   ==未読管理==
   * Waveの右下に未読(Unread)数が表示される。
   * ここをクリックすることで、未読の発言（Blip）に飛ぶ。
   * 中央Windowには、未読(Unread)数と総数が表示される。
 
-  ==他の人が作ったWaveを参照、参加する==
-  * 中央Windowの「New Wave」の横に「with:public」と入力して確定すると、全員に公開されているものが検索できる。
-  * 「tag:hack4jp」の場合は、「hack4jp」のタグがついているものになる
-  * 左WindowでAllを選んでおく必要があるかも
+  ==他の人が、今回のプロジェクト用に作ったWaveを参照、参加する==
+  * 左WindowでAllを選択する。
+  * 中央Windowの「New Wave」の横に「with:public tag:hack4jp」と入力して確定する
+    * with:publicで、全員に公開されているものが検索できる。
+    * tag:hack4jpで、「hack4jp」のタグがついているものが検索できる。
 
   ==新しいWaveを作る==
-  * (obsolete) Google Waveの使い方まとめ (Public) https://wave.google.com/wave/waveref/googlewave.com/w+Q_RzOoZOA
+  * Wave上の「(obsolete) Google Waveの使い方まとめ (Public)」を参照。
+    * https://wave.google.com/wave/waveref/googlewave.com/w+Q_RzOoZOA
 
   * 公開設定
     * Contactsnの+ボタンから "public@a.gwave.com" という仮想ユーザーを付け加える
