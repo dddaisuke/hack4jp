@@ -1,0 +1,1 @@
+mydoctor is moved to http://code.google.com/p/my-doctor/
